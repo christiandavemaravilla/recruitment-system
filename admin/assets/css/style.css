@@ -1618,11 +1618,12 @@ section {
 }
 nav#sidebar {
     height: calc(100%);
-    position: fixed;
+    position: absolute;
     z-index: 99;
     left: 0;
+    top: 70px;
     width: 250px;
-    background: url(../../../assets/img/travel-cover.jpg);
+    background-color: white;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -1631,14 +1632,14 @@ a.nav-item {
     display: block;
     padding: .75rem 1.25rem;
     margin-bottom: -1px;
-    border: 1px solid rgba(0,0,0,.125);
-    background-color: #000000c4;
-    color: #989898;
+    border: 1px solid rgba(217, 221, 226, 0.103);
+    background-color: #f05b0500;
+    color: #ffffff;
     font-weight: 600;
 }
 a.nav-item:hover, .nav-item.active {
-    background-color: #000000ad;
-    color: #fffafa;
+    background-color: #ffffff72;
+    color: #ffffff;
 }
 main#view-panel{
   margin-left: 250px; 

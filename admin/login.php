@@ -19,97 +19,95 @@ header("location:index.php?page=home");
 
 </head>
 <style>
-	body{
-		width: 100%;
-	    height: calc(100%);
-	    /*background: #007bff;*/
-	}
-	main#main{
-		width:100%;
-		height: calc(100%);
-		background:white;
-	}
-	#login-right{
-		position: absolute;
-		right:0;
-		width:40%;
-		height: calc(100%);
-		background:white;
-		display: flex;
-		align-items: center;
-	}
-	#login-left{
-		position: absolute;
-		left:0;
-		width:60%;
-		height: calc(100%);
-		background:#59b6ec61;
-		display: flex;
-		align-items: center;
-		background: url(assets/img/recruitment-cover.jpg);
-	    background-repeat: no-repeat;
-	    background-size: cover;
-	}
-	#login-right .card{
-		margin: auto;
-		z-index: 1
-	}
-	.logo {
-    margin: auto;
-    font-size: 8rem;
-    background: white;
-    padding: .5em 0.7em;
-    border-radius: 50% 50%;
-    color: #000000b3;
-    z-index: 10;
-}
-div#login-right::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: calc(100%);
-    height: calc(100%);
-    background: #000000e0;
-}
+	 body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(135deg, #00c9ff, #92fe9d); /* Gradient background */
+            font-family: Arial, sans-serif;
+        }
 
-</style>
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 50px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input:focus {
+            border-color: #feb47b;
+            outline: none;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #00c9ff, #92fe9d);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background: linear-gradient(135deg, #007bff, #00c9ff);
+        }
+        .link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .link a {
+            color: #ff7e5f;
+            text-decoration: none;
+        }
+    </style>
 
 <body>
-
-
-  <main id="main" class=" bg-dark">
-  		<div id="login-left">
-  			
-  		</div>
-
-  		<div id="login-right">
-  			<div class="card col-md-8">
-  				<div class="card-body">
-  						<div class="logo">
-			  				<span class="fa fa-hands-helping"></span>
-			  			</div>
-  					<form id="login-form" >
-  						<div class="form-group">
-  							<label for="username" class="control-label">Username</label>
-  							<input type="text" id="username" name="username" class="form-control">
-  						</div>
-  						<div class="form-group">
-  							<label for="password" class="control-label">Password</label>
-  							<input type="password" id="password" name="password" class="form-control">
-  						</div>
-  						<center><button class="btn-sm btn-block btn-wave col-md-4 btn-primary">Login</button></center>
-  					</form>
-  				</div>
-  			</div>
-  		</div>
-   
-
-  </main>
-
-  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
-
-
+<div class="container">
+        <h2>Login</h2>
+        <form id="login-form" >
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+    
 </body>
 <script>
 	$('#login-form').submit(function(e){
