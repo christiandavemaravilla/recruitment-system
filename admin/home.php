@@ -13,8 +13,7 @@
 
 	<div class="row mt-3 ml-3 mr-3">
 		<div class="col-lg-12">
-            <!-- Add container for the Dashboard heading -->
-            <div class="container">
+          <div class="container">
                 <h1 class="font-weight-bold" style="font-size: 2.5rem;">Dashboard</h1>
                 <hr>
             </div>
