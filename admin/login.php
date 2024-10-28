@@ -26,7 +26,7 @@ header("location:index.php?page=home");
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            background: linear-gradient(135deg, #00c9ff, #92fe9d); /* Gradient background */
+            background: linear-gradient(135deg, #ff8c00, #ffd700);
             font-family: Arial, sans-serif;
         }
 
@@ -37,6 +37,19 @@ header("location:index.php?page=home");
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-left: 50px;
+        }
+
+        .logo-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 100px;
+        }
+
+        .logo-container img {
+            max-width: 400px;
+            height: auto;
         }
 
         h2 {
@@ -68,7 +81,7 @@ header("location:index.php?page=home");
         .form-group button {
             width: 100%;
             padding: 10px;
-            background: linear-gradient(135deg, #00c9ff, #92fe9d);
+            background: linear-gradient(135deg, #ff8c00, #ffd700);
             color: white;
             border: none;
             border-radius: 5px;
@@ -91,7 +104,7 @@ header("location:index.php?page=home");
     </style>
 
 <body>
-<div class="container">
+    <div class="container">
         <h2>Login</h2>
         <form id="login-form" >
             <div class="form-group">
@@ -108,6 +121,10 @@ header("location:index.php?page=home");
         </form>
     </div>
     
+    <div class="logo-container">
+        <img src="assets/img/smarthire.png" alt="SmartHire Logo">
+    </div>
+
 </body>
 <script>
 	$('#login-form').submit(function(e){

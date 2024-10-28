@@ -1633,12 +1633,12 @@ a.nav-item {
     padding: .75rem 1.25rem;
     margin-bottom: -1px;
     border: 1px solid rgb(245, 246, 248);
-    background-color: #f05b0500;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #000000;
     font-weight: 600;
 }
 a.nav-item:hover, .nav-item.active {
-    background-color: #ffffff72;
+    background-color: #08080858;
     color: #ffffff;
 }
 main#view-panel{
