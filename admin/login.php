@@ -11,9 +11,9 @@
 <?php include('./header.php'); ?>
 <?php include('./db_connect.php'); ?>
 <?php 
-session_start();
+    session_start();
 if(isset($_SESSION['login_id']))
-header("location:index.php?page=home");
+header("location:index.php");
 
 ?>
 

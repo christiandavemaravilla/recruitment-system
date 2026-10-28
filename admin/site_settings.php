@@ -6,89 +6,146 @@ if($qry->num_rows > 0){
 		$meta[$k] = $val;
 	}
 }
- ?>
-<div class="container-fluid">
-	
-	<div class="card col-lg-12">
-		<div class="card-body">
-			<form action="" id="manage-settings">
-				<div class="form-group">
-					<label for="name" class="control-label">System Name</label>
-					<input type="text" class="form-control" id="name" name="name" value="<?php echo isset($meta['name']) ? $meta['name'] : '' ?>" required>
-				</div>
-				<div class="form-group">
-					<label for="email" class="control-label">Email</label>
-					<input type="email" class="form-control" id="email" name="email" value="<?php echo isset($meta['email']) ? $meta['email'] : '' ?>" required>
-				</div>
-				<div class="form-group">
-					<label for="contact" class="control-label">Contact</label>
-					<input type="text" class="form-control" id="contact" name="contact" value="<?php echo isset($meta['contact']) ? $meta['contact'] : '' ?>" required>
-				</div>
-				<div class="form-group">
-					<label for="about" class="control-label">About Content</label>
-					<textarea name="about" class="text-jqte"><?php echo isset($meta['about_content']) ? $meta['about_content'] : '' ?></textarea>
+?>
 
-				</div>
-				<div class="form-group">
-					<label for="" class="control-label">Image</label>
-					<input type="file" class="form-control" name="img" onchange="displayImg(this,$(this))">
-				</div>
-				<div class="form-group">
-					<img src="<?php echo isset($meta['cover_img']) ? 'assets/img/'.$meta['cover_img'] :'' ?>" alt="" id="cimg">
-				</div>
-				<center>
-					<button class="btn btn-info btn-primary btn-block col-md-2">Save</button>
-				</center>
-			</form>
-		</div>
-	</div>
-	<style>
-	img#cimg{
-		max-height: 10vh;
-		max-width: 6vw;
-	}
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-sm rounded-lg">
+                <div class="card-header bg-white border-0">
+                    <h4 class="card-title text-primary mb-0">System Settings</h4>
+                </div>
+                <div class="card-body">
+                    <form action="" id="manage-settings" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-3">
+                                    <label for="name" class="form-label fw-bold">System Name</label>
+                                    <input type="text" class="form-control rounded-pill" id="name" name="name" value="<?php echo isset($meta['name']) ? $meta['name'] : '' ?>" required>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="email" class="form-label fw-bold">Email Address</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light border-right-0"><i class="fa fa-envelope"></i></span>
+                                                </div>
+                                                <input type="email" class="form-control border-left-0" id="email" name="email" value="<?php echo isset($meta['email']) ? $meta['email'] : '' ?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label for="contact" class="form-label fw-bold">Contact Number</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light border-right-0"><i class="fa fa-phone"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control border-left-0" id="contact" name="contact" value="<?php echo isset($meta['contact']) ? $meta['contact'] : '' ?>" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group mb-4">
+                                    <label for="about" class="form-label fw-bold">About Content</label>
+                                    <textarea name="about" class="text-jqte"><?php echo isset($meta['about_content']) ? $meta['about_content'] : '' ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+                                <i class="fa fa-save mr-2"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom Styles */
+    .form-label {
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .input-group-text {
+        background-color: #f8f9fa;
+    }
+    
+    .form-control:focus {
+        border-color: #4e73df;
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+    
+    .btn-primary {
+        background-color: #4e73df;
+        border-color: #4e73df;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2e59d9;
+        border-color: #2653d4;
+    }
+    
+    .text-primary {
+        color: #4e73df !important;
+    }
+    
+    .card {
+        border: none;
+    }
+    
+    /* Style for jQTE editor */
+    .jqte {
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        margin-top: 5px;
+    }
+    
+    .jqte_toolbar {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #ced4da;
+    }
 </style>
 
 <script>
-	function displayImg(input,_this) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-        	$('#cimg').attr('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
+    function displayImg(input, _this) {
+        // Function removed
     }
-}
-	$('.text-jqte').jqte();
-
-	$('#manage-settings').submit(function(e){
-		e.preventDefault()
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=save_settings',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			error:err=>{
-				console.log(err)
-			},
-			success:function(resp){
-				if(resp == 1){
-					alert_toast('Data successfully saved.','success')
-					setTimeout(function(){
-						location.reload()
-					},1000)
-				}
-			}
-		})
-
-	})
+    
+    $('.text-jqte').jqte();
+    
+    $('#manage-settings').submit(function(e){
+        e.preventDefault();
+        start_load();
+        $.ajax({
+            url: 'ajax.php?action=save_settings',
+            data: new FormData($(this)[0]),
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+            type: 'POST',
+            error: err => {
+                console.log(err);
+            },
+            success: function(resp){
+                if(resp == 1){
+                    alert_toast('Data successfully saved.', 'success');
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1000);
+                }
+            }
+        });
+    });
 </script>
-<style>
-	
-</style>
-</div>

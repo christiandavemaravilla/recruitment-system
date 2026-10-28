@@ -1,0 +1,6 @@
+<br />
+<b>Warning</b>:  filetype(): Lstat failed for assets/resume/uploads/1742284144_resume.pdf in <b>C:\xampp\htdocs\Recruitment_Management_System\admin\download.php</b> on line <b>12</b><br />
+<br />
+<b>Warning</b>:  filesize(): stat failed for assets/resume/uploads/1742284144_resume.pdf in <b>C:\xampp\htdocs\Recruitment_Management_System\admin\download.php</b> on line <b>13</b><br />
+<br />
+<b>Warning</b>:  readfile(assets/resume/uploads/1742284144_resume.pdf): Failed to open stream: No such file or directory in <b>C:\xampp\htdocs\Recruitment_Management_System\admin\download.php</b> on line <b>16</b><br />

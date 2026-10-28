@@ -1,67 +1,43 @@
-<header class="masthead">
-            <div class="container-fluid h-100">
-                <div class="row h-100 align-items-center justify-content-center text-center">
-                   
-                    
-                </div>
-            </div>
-        </header>
-<section id="">
-<?php include 'admin/db_connect.php' ?>
+<?php
+session_start();
+?>
+
+<section id="" class="mt-5">
+    <?php include 'admin/db_connect.php'; ?>
+</section>
 
 <?php
-	$qry = $conn->query("SELECT * FROM vacancy where id=".$_GET['id'])->fetch_array();
-	foreach($qry as $k =>$v){
-		$$k = $v;
-	}
+$qry = $conn->query("SELECT * FROM vacancy WHERE id=" . $_GET['id'])->fetch_array();
+foreach ($qry as $k => $v) {
+    $$k = $v;
+}
 ?>
-<div class="container mb-2 pt-4 ">
-	<div class="card">
-		<div class="card-body">
-			<div class="row">
-				<div class="col-lg-12">
-					<h4 class="text-center"><b><?php echo $position ?></b></h4>
-					<hr class="divider" style="max-width: calc(10%)">
-					<p class="text-center">
-						<small>
-							<i><b>Needed: <larger><?php echo $availability ?></larger></b></i>
-						</small>
-						<?php if($status == 1): ?>
-							<span class="badge badge-success pt-2">Hiring</span>
-						<?php else: ?>
-							<span class="badge badge-danger pt-2">Closed</span>
-						<?php endif; ?>
-					</p>
-				</div>
-			</div>
-				<hr class="divider" style="max-width: calc(100%)">
-			<div class="row">
-				<div class="col-lg-12">
-					<?php echo html_entity_decode($description) ?>
-				</div>
-			</div>
-			<hr class="divider" style="max-width: calc(100%)">
-			<div class="row">
-				<div class="col-lg-12">
-						<?php if($status == 1): ?>
-							<button class="btn btn-block col-md-4 btn-primary btn-sm float-right" type="button" id="apply_now">Apply Now</button>
-
-						<?php else: ?>
-							<button class="btn btn-block col-md-4 btn-primary btn-sm float-right" type="button" disabled="" id="">Application Closed</button>
-						<?php endif; ?>
-
-				</div>
-			</div>
-			</div>
-		</div>
-	</div>
-</section>
-<script>
-	$('html, body').animate({
-          scrollTop: ($('section').offset().top - 72)
-        }, 1000);
-	$('#apply_now').click(function(){
-		uni_modal('Application from','submit_application.php?id=<?php echo $_GET['id'] ?>','large')
-	})
-</script>
-
+<div class="container mb-4 pt-4" style="box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); border-radius: 10px;">
+    <div class="card border-0">
+        <div class="card-body p-5">
+            <div class="text-center mb-4">
+                <h2 class="font-weight-bold"><?php echo $position; ?></h2>
+                <p class="text-muted">
+                    <i>Needed: <strong><?php echo $availability; ?></strong></i>
+                </p>
+                <?php if ($status == 1): ?>
+                    <span class="badge bg-success p-2">Hiring</span>
+                <?php else: ?>
+                    <span class="badge bg-danger p-2">Closed</span>
+                <?php endif; ?>
+            </div>
+            <hr>
+            <div class="mb-4">
+                <?php echo html_entity_decode($description); ?>
+            </div>
+            <hr>
+            <div class="text-center">
+                <?php if ($status == 1): ?>
+                    <a href="submit_application.php?id=<?php echo $_GET['id']; ?>" class="btn btn-primary btn-lg">Apply Now</a>
+                <?php else: ?>
+                    <button class="btn btn-secondary btn-lg" disabled>Application Closed</button>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

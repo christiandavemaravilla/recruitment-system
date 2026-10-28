@@ -1,3 +1,4 @@
+<?php ?>
 <nav class="navbar navbar-light fixed-top" style="padding:10px; background: linear-gradient(to right, #ff8c00, #ffd700); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
   <div class="container-fluid mt-2 mb-2">
     <div class="col-lg-12">
@@ -7,7 +8,18 @@
         <img src="assets/img/smarthire.png" alt="SmartHire Logo" style="height:35px; width: auto;">
       </div>
       <div class="col-md-2 float-right text-black">
-        <a href="ajax.php?action=logout" class="text-white"><?php echo $_SESSION['login_name'] ?> <i class="fa fa-power-off"></i></a>
+        <?php 
+        include 'db_connect.php';
+        $user_id = $_SESSION['login_id'];
+        $user = $conn->query("SELECT * FROM users WHERE id = $user_id");
+        $user_data = $user->fetch_assoc();
+        ?>
+        <div class="d-flex align-items-center justify-content-end">
+          <?php if(!empty($user_data['profile_image'])): ?>
+            <img src="assets/img/profile_images/<?php echo $user_data['profile_image'] ?>" class="rounded-circle mr-2" style="height: 30px; width: 30px; object-fit: cover;">
+          <?php endif; ?>
+          <a href="ajax.php?action=logout" class="text-white"><?php echo $_SESSION['login_name'] ?> <i class="fa fa-power-off"></i></a>
+        </div>
       </div>
     </div>
   </div>

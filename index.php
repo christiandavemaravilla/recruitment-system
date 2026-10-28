@@ -1,127 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-    <?php
-    session_start();
-    include('admin/db_connect.php');
-    ob_start();
-    $query = $conn->query("SELECT * FROM system_settings limit 1")->fetch_array();
-     foreach ($query as $key => $value) {
-      if(!is_numeric($key))
-        $_SESSION['setting_'.$key] = $value;
-    }
-    ob_end_flush();
-    include('header.php');
+<?php
+session_start(); // Start the session
+include('admin/db_connect.php');
+ob_start();
 
-	
-    ?>
-
-    <style>
-    	header.masthead {
-		  background: url(admin/assets/img/<?php echo $_SESSION['setting_cover_img'] ?>);
-		  background-repeat: no-repeat;
-		  background-size: cover;
-		}
-    </style>
-    <body id="page-top">
-        <!-- Navigation-->
-        <div class="toast" id="alert_toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-body text-white">
-        </div>
-      </div>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="./"><?php echo $_SESSION['setting_name'] ?></a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.php?page=home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.php?page=about">About</a></li>
-                        
-                     
-                    </ul>
-                </div>
-            </div>
-        </nav>
-       
-        <?php 
-        $page = isset($_GET['page']) ?$_GET['page'] : "home";
-        include $page.'.php';
-        ?>
-       
-
-<div class="modal fade" id="confirm_modal" role='dialog'>
-    <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title">Confirmation</h5>
-      </div>
-      <div class="modal-body">
-        <div id="delete_content"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id='confirm' onclick="">Continue</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="uni_modal" role='dialog'>
-    <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title"></h5>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id='submit' onclick="$('#uni_modal form').submit()">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-      </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="uni_modal_right" role='dialog'>
-    <div class="modal-dialog modal-full-height  modal-md" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span class="fa fa-arrow-righ t"></span>
-        </button>
-      </div>
-      <div class="modal-body">
-      </div>
-      </div>
-    </div>
-  </div>
-  <div id="preloader"></div>
-        <footer class="bg-light py-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <h2 class="mt-0">Contact us</h2>
-                        <hr class="divider my-4" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
-                        <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
-                        <div><?php echo $_SESSION['setting_contact'] ?></div>
-                    </div>
-                    <div class="col-lg-4 mr-auto text-center">
-                        <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-                        <!-- Make sure to change the email address in BOTH the anchor text and the link target below!-->
-                        <a class="d-block" href="mailto:<?php echo $_SESSION['setting_email'] ?>"><?php echo $_SESSION['setting_email'] ?></a>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="container"><div class="small text-center text-muted">Welcome - <?php echo $_SESSION['setting_name'] ?> | <a href="https://1sourcecodr.blogspot.com" target="_blank">1 Source Code</a></div></div>
-        </footer>
+// Load system settings into session variables
+$query = $conn->query("SELECT * FROM system_settings LIMIT 1")->fetch_array();
+foreach ($query as $key => $value) {
+    if (!is_numeric($key))
+        $_SESSION['setting_' . $key] = $value;
+}
+ob_end_flush();
         
-       <?php include('footer.php') ?>
-    </body>
+// Update email session
+if (isset($_SESSION['id'])) {
+    $userid = $_SESSION['id'];
+    $result = $conn->query("SELECT email FROM userlist WHERE id = '$userid'");
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+        $_SESSION['email'] = $user['email'];
+    }
+}
 
-    <?php $conn->close() ?>
+include('header.php');
+?>
 
+<style>
+    /* Navbar styling */
+    a.nav-link {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+    a.nav-link:hover {
+        text-decoration: none;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="padding:10px; background: linear-gradient(to right, #ff8c00, #ffd700); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="#">
+            <img src="assets/img/smarthire.png" alt="SmartHire Logo" style="height:35px; width:auto;">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <?php if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) : ?>
+                    <li class="nav-item">
+                        <a href="user_login.php" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="register.php" class="nav-link">Register</a>
+                    </li>
+                <?php else : ?>
+                    <!-- 🔔 Notification Bell Icon -->
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="view_notification.php">
+                            <i class="fa fa-bell text-white" style="font-size: 20px;"></i>
+                        </a>
+                    </li>
+
+                    <!-- Account Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?php
+                            $userid = $_SESSION['id'];
+                            $result = $conn->query("SELECT profile_pic FROM userlist WHERE id = '$userid'");
+                            $user = $result->fetch_assoc();
+                            $profile_pic = !empty($user['profile_pic']) ? $user['profile_pic'] : 'uploads/default.png';
+                            ?>
+                            <img src="<?php echo $profile_pic; ?>" alt="Profile Picture" style="height:35px; width:35px; border-radius:50%; object-fit:cover;" class="me-2">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                            <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<?php 
+$page = isset($_GET['page']) ? $_GET['page'] : "home";
+include $page . '.php';
+?>
+
+<?php $conn->close(); ?>
 </html>
